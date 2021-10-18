@@ -10,8 +10,6 @@ public class FullTime extends Teacher {
         this.experience = experience;
     }
 
-
-
     public float getExperience() {
         return experience;
     }
@@ -32,4 +30,11 @@ public class FullTime extends Teacher {
     }
 
 
+    @Override
+    public String toString() {
+        return "Name: " + this.name + "\n" +
+                "Salary: " + this.teacherSalary() + "\n" +
+                "Experience: " + this.experience + " " +
+                "Base Salary: " + this.baseSalary + "\n";
+    }
 }

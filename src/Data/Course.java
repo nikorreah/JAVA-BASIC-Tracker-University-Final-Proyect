@@ -29,9 +29,11 @@ public class Course {
         this.studentsList = studentsList;
     }
 
-    public Course(){this.courseId = nextCourseID++; }
+    public Course(){
+        this.courseId = nextCourseID++; }
 
-    public static int getNextCourseID() {return nextCourseID; }
+    public static int getNextCourseID() {
+        return nextCourseID; }
 
     public static void setNextCourseID(int nextCourseID) {
         nextCourseID = nextCourseID;

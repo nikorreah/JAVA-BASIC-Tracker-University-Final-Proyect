@@ -7,7 +7,6 @@ import Data.Person.TypeTeacher.FullTime;
 import Data.Person.TypeTeacher.PartTime;
 import Data.University;
 
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -76,130 +75,23 @@ public class Main {
 
         int option;
         do {
-            System.out.println("========Welcome to the Final University=======\n" +
-                    "==========PLEASE MAKE YOUR SELECTION========== \n" +
-                    "1. The teacher list. \n" +
-                    "2. The Classes at the campus. \n" +
-                    "3. Create a new student. \n" +
-                    "4. Create a new Class. \n" +
-                    "5. The where the student are included. \n" +
-                    "6. Exit.");
+            initMenu();
             option = scanner.nextInt();
             switch (option) {
                 case 1:
-                    System.out.println("=======Teacher List======");
-                    for (int i = 0; i < university.getTeacherList().size(); i++) {
-                        System.out.println("Name: " + university.getTeacherList().get(i).getName() + "\n" +
-                                "Salary: " + university.getTeacherList().get(i).teacherSalary() + "\n");
-                    }
+                    selectMenu1(university);
                     break;
                 case 2:
-                    boolean optionSubMenu =true;
-                    while (optionSubMenu) {
-                        System.out.println("\n=======Classes and class rooms======\n" +
-                                "Select the class you want to check the Teacher and the students");
-                        System.out.println("0. Exit");
-                        for (int i = 0; i < university.getCoursesList().size(); ++i) {
-                            System.out.println(1 + i + "." + " Class name: " + university.getCoursesList().get(i).getName() +
-                                    ". Class room: " + university.getCoursesList().get(i).getCourseRoom() + " Course ID: " +
-                                    university.getCoursesList().get(i).getCourseId());
-                        }
-                        Scanner subMenu1 = new Scanner(System.in);
-                        int optionSubMenu1 = subMenu1.nextInt();
-                        if (optionSubMenu1>0 && optionSubMenu1 <= university.getCoursesList().size()){
-                            System.out.println("Teacher: " + university.getCoursesList().get(optionSubMenu1-1).getMainTeacher().getName());
-                            for (Student i: university.getCoursesList().get(optionSubMenu1-1).getStudentsList()) {
-                                System.out.println("Student: " + i.getName() +
-                                        " - Student ID: " + i.getStudentId());
-                            }
-                        } else if (optionSubMenu1 == 0) {
-                            optionSubMenu=false;
-                        }
-                        else {
-                            System.out.println("Select a valid option");
-                        }
-                    }
+                    selectMenu2(university);
                     break;
                 case 3:
-                    Scanner newStudent = new Scanner(System.in);
-                    System.out.print("Please enter new student name: ");
-                    String student = newStudent.nextLine();
-                    System.out.print("Please enter the student age: ");
-                    int studentAge = newStudent.nextInt();
-                    Student newStudentAdd = new Student(student, studentAge);
-                    university.addNewStudent(newStudentAdd);
-                    System.out.println("Select the Class (by number) where the new student will be add: \n" +
-                             university.getCoursesList().get(0).getCourseId() + " Televisión. \n" +
-                             university.getCoursesList().get(1).getCourseId() + " Radio \n" +
-                             university.getCoursesList().get(2).getCourseId() + " Desarrollo Front End \n" +
-                             university.getCoursesList().get(3).getCourseId() + " Java Basic \n");
-                    Scanner courseChoice= new Scanner(System.in);
-                    int id= courseChoice.nextInt();
-                    university.findCourseByID(id).addNewStudent(newStudentAdd);
+                    selectMenu3(university);
                     break;
                 case 4:
-                    Scanner newCourse = new Scanner(System.in);
-                    System.out.println("Name of the new class: ");
-                    String courseNew = newCourse.nextLine();
-                    System.out.println("Please enter the classroom: ");
-                    String classRoom = newCourse.nextLine();
-                    Course newCourseAdd = new Course(courseNew, classRoom);
-                    university.newCourse(newCourseAdd);
-                    for (int i = 0; i < university.getTeacherList().size(); i++) {
-                        System.out.println("Select the main teacher: " + "Teacher ID:"
-                                +university.getTeacherList().get(i).getTeacherID() +" "+
-                                university.getTeacherList().get(i).getName());
-                    }
-                    int teacherSelect = newCourse.nextInt();
-                    Teacher teacherAdd = university.findTeacherByID(teacherSelect);
-                    university.findCourse(courseNew).addTeacher(teacherAdd);
-                    System.out.println("Do you want to add a student to this class: \n" +
-                            "1. Yes \n" +
-                            "2. No");
-                    Scanner a=new Scanner(System.in);
-                    int optionSubMenu3= a.nextInt();
-                    boolean option4=true;
-                    while (option4){
-                        System.out.println("select the ID of the student that you want to add:");
-                        for (int i = 0; i < university.getStudentsList().size(); i++) {
-                            System.out.println("--" + "Student ID: " + university.getStudentsList().get(i).getStudentId() +
-                                    "-" + university.getStudentsList().get(i).getName());
-                        }
-                        int studentSelected=scanner.nextInt();
-                        Student studentToAdd= university.findStudentByID(studentSelected);
-                        university.findCourse(courseNew).addNewStudent(studentToAdd);
-                        System.out.println("Do you want to add another student? \n" +
-                                "1. Yes.\n" +
-                                "2. No");
-                        Scanner b=new Scanner(System.in);
-                        int optionSubMenu4= b.nextInt();
-                        if (optionSubMenu4 < 1 ) {
-                            System.out.println("Do you want to add another student? \n" +
-                                    "1. Yes.\n" +
-                                    "2. No");
-                        } else if (optionSubMenu4 == 2) {
-                                    option4=false;
-                        } else {
-                            System.out.println("Select a correct option");
-                        }
-                    }
+                    selectMenu4(university);
                     break;
                 case 5:
-                    System.out.println("-- Which student you want to check for his classes--\n" +
-                            "-------Select the ID that you want to search:");
-                    for (int i = 0; i < university.getStudentsList().size(); i++) {
-                        System.out.println(university.getStudentsList().get(i).toString());
-                    }
-                    scanner = new Scanner(System.in);
-                    int studentID= scanner.nextInt();
-                    System.out.println("There are the classes that the student attend: ");
-                    for (int i = 0; i < university.getCoursesList().size(); i++) {
-                        if (university.getCoursesList().get(i).findStudentByID(studentID) != null) {
-                            System.out.println("OK=> " + university.getCoursesList().get(i).getName());
-                        } else {
-                                System.out.println("No here: " + university.getCoursesList().get(i).getName());
-                        }
-                    }
+                    selectMenu5(university);
                     break;
                 case 6:
                     System.out.println("Thanks for using our service ");
@@ -210,5 +102,124 @@ public class Main {
             }
         } while (option < 6);
     }
+    private static void initMenu () {
+        System.out.println("========Welcome to the Final University=======\n" +
+                "==========PLEASE MAKE YOUR SELECTION========== \n" +
+                "1. The teacher list. \n" +
+                "2. The Classes at the campus. \n" +
+                "3. Create a new student. \n" +
+                "4. Create a new Class. \n" +
+                "5. The where the student are included. \n" +
+                "6. Exit.");
+    }
 
+    private static void selectMenu1 (University university) {
+        System.out.println("=======Teacher List======");
+        for (int i = 0; i < university.getTeacherList().size(); i++) {
+            System.out.println(university.getTeacherList().get(i).toString());
+        }
+    }
+
+    private static void selectMenu2 (University university) {
+        boolean optionSubMenu =true;
+        while (optionSubMenu) {
+            System.out.println("\n=======Classes and class rooms======\n" +
+                    "Select the class you want to check the Teacher and the students");
+            System.out.println("0. Exit");
+            university.cursesListToString();
+            Scanner subMenu1 = new Scanner(System.in);
+            int optionSubMenu1 = subMenu1.nextInt();
+            if (optionSubMenu1>0 && optionSubMenu1 <= university.getCoursesList().size()){
+                System.out.println("Teacher: " + university.getCoursesList().get(optionSubMenu1-1).getMainTeacher().getName());
+                for (Student i: university.getCoursesList().get(optionSubMenu1-1).getStudentsList()) {
+                    System.out.println(i.toString());
+                }
+            } else if (optionSubMenu1 == 0) {
+                optionSubMenu=false;
+            }
+            else {
+                System.out.println("Select a valid option");
+            }
+        }
+    }
+
+    private static void selectMenu3 (University university){
+        Scanner newStudent = new Scanner(System.in);
+        System.out.print("Please enter new student name: ");
+        String student = newStudent.nextLine();
+        System.out.print("Please enter the student age: ");
+        int studentAge = newStudent.nextInt();
+        Student newStudentAdd = new Student(student, studentAge);
+        university.addNewStudent(newStudentAdd);
+        System.out.println("Select the Class (by number) where the new student will be add: \n");
+        university.cursesListToString();
+        Scanner courseChoice= new Scanner(System.in);
+        int id= courseChoice.nextInt();
+        university.findCourseByID(id).addNewStudent(newStudentAdd);
+    }
+
+    private static void selectMenu4 (University university) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Name of the new class: ");
+        String courseNew = scanner.nextLine();
+        System.out.println("Please enter the classroom: ");
+        String classRoom = scanner.nextLine();
+        Course newCourseAdd = new Course(courseNew, classRoom);
+        university.newCourse(newCourseAdd);
+        for (int i = 0; i < university.getTeacherList().size(); i++) {
+            System.out.println("Select the main teacher: " + "Teacher ID:"
+                    +university.getTeacherList().get(i).getTeacherID() +" "+
+                    university.getTeacherList().get(i).getName());
+        }
+        int teacherSelect = scanner.nextInt();
+        Teacher teacherAdd = university.findTeacherByID(teacherSelect);
+        university.findCourse(courseNew).addTeacher(teacherAdd);
+        System.out.println("Do you want to add a student to this class: \n" +
+                "1. Yes \n" +
+                "2. No");
+        scanner=new Scanner(System.in);
+        boolean option4=true;
+        while (option4){
+            System.out.println("select the ID of the student that you want to add:");
+            for (int i = 0; i < university.getStudentsList().size(); i++) {
+                System.out.println("--" + "Student ID: " + university.getStudentsList().get(i).getStudentId() +
+                        "-" + university.getStudentsList().get(i).getName());
+            }
+            int studentSelected=scanner.nextInt();
+            Student studentToAdd= university.findStudentByID(studentSelected);
+            university.findCourse(courseNew).addNewStudent(studentToAdd);
+            System.out.println("Do you want to add another student? \n" +
+                    "1. Yes.\n" +
+                    "2. No");
+            scanner=new Scanner(System.in);
+            int optionSubMenu4= scanner.nextInt();
+            if (optionSubMenu4 < 1 ) {
+                System.out.println("Do you want to add another student? \n" +
+                        "1. Yes.\n" +
+                        "2. No");
+            } else if (optionSubMenu4 == 2) {
+                option4=false;
+            } else {
+                System.out.println("Select a correct option");
+            }
+        }
+    }
+
+    private static void selectMenu5 (University university) {
+        System.out.println("-- Which student you want to check for his classes--\n" +
+                "-------Select the ID that you want to search:");
+        for (int i = 0; i < university.getStudentsList().size(); i++) {
+            System.out.println(university.getStudentsList().get(i).toString());
+        }
+        Scanner scanner = new Scanner(System.in);
+        int studentID= scanner.nextInt();
+        System.out.println("There are the classes that the student attend: ");
+        for (int i = 0; i < university.getCoursesList().size(); i++) {
+            if (university.getCoursesList().get(i).findStudentByID(studentID) != null) {
+                System.out.println("OK=> " + university.getCoursesList().get(i).getName());
+            } else {
+                System.out.println("No here: " + university.getCoursesList().get(i).getName());
+            }
+        }
+    }
     }

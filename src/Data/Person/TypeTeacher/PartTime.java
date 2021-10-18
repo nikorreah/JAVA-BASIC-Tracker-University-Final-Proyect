@@ -35,4 +35,12 @@ public class PartTime extends Teacher {
     }
 
 
+    @Override
+    public String toString() {
+        return  "Name: " + this.name + "\n" +
+                "Salary: " + this.teacherSalary() + "\n" +
+                "Hours per week: " + this.hoursPerWeek + " " +
+                "Base Salary: " + this.baseSalary + "\n";
+
+    }
 }

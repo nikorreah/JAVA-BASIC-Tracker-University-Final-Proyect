@@ -19,4 +19,6 @@ public abstract class Person {
         return null;
     }
 
+    public abstract String toString();
+
 }

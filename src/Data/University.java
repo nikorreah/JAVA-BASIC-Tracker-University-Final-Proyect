@@ -18,7 +18,6 @@ public class University {
         this.studentsList = new ArrayList<Student>();
     }
 
-
     public List<Teacher> getTeacherList() {
         return teacherList;
     }
@@ -97,5 +96,13 @@ public class University {
             }
         }
         return foundStudent;
+    }
+
+    public void cursesListToString () {
+        for (int i = 0; i < this.getCoursesList().size(); ++i) {
+            System.out.println(1 + i + "." + " Class name: " + this.getCoursesList().get(i).getName() +
+                    ". Class room: " + this.getCoursesList().get(i).getCourseRoom() + " Course ID: " +
+                    this.getCoursesList().get(i).getCourseId());
+        }
     }
 }
