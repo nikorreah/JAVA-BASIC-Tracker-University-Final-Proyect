@@ -43,4 +43,8 @@ public abstract class Teacher extends Person{
 
     public abstract float teacherSalary(float getBaseSalary);
 
+    public String teacherToString () {
+       return "Select the main teacher: " + "Teacher ID:" + this.teacherID +" "+ this.name;
+    }
+
 }

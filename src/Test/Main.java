@@ -36,21 +36,17 @@ public class Main {
         university.addNewStudent(student5);
         university.addNewStudent(student6);
 
-        Course course1 = new Course("Televisión", "A101");
-        Course course2 = new Course("Radio", "B302");
-        Course course3 = new Course("Desarrollo Front End", "A204");
-        Course course4 = new Course("Java Basic", "B202");
-
-        university.newCourse(course1);
-        university.newCourse(course2);
-        university.newCourse(course3);
-        university.newCourse(course4);
+        // initialating minimun 4 classes
+        university.newCourse(new Course("Televition", "A101"));
+        university.newCourse(new Course("Radio", "B302"));
+        university.newCourse(new Course("Desarrollo Front End", "A204"));
+        university.newCourse(new Course("Java Basic", "B202"));
 
 
-        university.findCourse("Televisión").addTeacher(university.getTeacherList().get(2));
-        university.findCourse("Televisión").addNewStudent(student1);
-        university.findCourse("Televisión").addNewStudent(student2);
-        university.findCourse("Televisión").addNewStudent(student3);
+        university.findCourse("Televition").addTeacher(university.getTeacherList().get(2));
+        university.findCourse("Televition").addNewStudent(student1);
+        university.findCourse("Televition").addNewStudent(student2);
+        university.findCourse("Televition").addNewStudent(student3);
 
 
         university.findCourse("Radio").addTeacher(university.getTeacherList().get(0));
@@ -71,7 +67,6 @@ public class Main {
         university.findCourse("Java Basic").addNewStudent(student6);
 
         Scanner scanner = new Scanner(System.in);
-
 
         int option;
         do {
@@ -167,9 +162,7 @@ public class Main {
         Course newCourseAdd = new Course(courseNew, classRoom);
         university.newCourse(newCourseAdd);
         for (int i = 0; i < university.getTeacherList().size(); i++) {
-            System.out.println("Select the main teacher: " + "Teacher ID:"
-                    +university.getTeacherList().get(i).getTeacherID() +" "+
-                    university.getTeacherList().get(i).getName());
+            System.out.println(university.getTeacherList().get(i).teacherToString());
         }
         int teacherSelect = scanner.nextInt();
         Teacher teacherAdd = university.findTeacherByID(teacherSelect);
@@ -178,12 +171,11 @@ public class Main {
                 "1. Yes \n" +
                 "2. No");
         scanner=new Scanner(System.in);
-        boolean option4=true;
-        while (option4){
+        int option4 = scanner.nextInt();
+        while (option4 < 2){
             System.out.println("select the ID of the student that you want to add:");
             for (int i = 0; i < university.getStudentsList().size(); i++) {
-                System.out.println("--" + "Student ID: " + university.getStudentsList().get(i).getStudentId() +
-                        "-" + university.getStudentsList().get(i).getName());
+                System.out.println(university.getStudentsList().get(i).toString());
             }
             int studentSelected=scanner.nextInt();
             Student studentToAdd= university.findStudentByID(studentSelected);
@@ -198,7 +190,7 @@ public class Main {
                         "1. Yes.\n" +
                         "2. No");
             } else if (optionSubMenu4 == 2) {
-                option4=false;
+                option4=2;
             } else {
                 System.out.println("Select a correct option");
             }
