@@ -150,7 +150,10 @@ public class Main {
         university.cursesListToString();
         Scanner courseChoice= new Scanner(System.in);
         int id= courseChoice.nextInt();
-        university.findCourseByID(id).addNewStudent(newStudentAdd);
+        if (id > university.getCoursesList().size()){
+            System.out.println("You have select a invalid option");
+            } else {
+        university.findCourseByID(id).addNewStudent(newStudentAdd);}
     }
 
     private static void selectMenu4 (University university) {
